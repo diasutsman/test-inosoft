@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,4 +19,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource("vehicles", \App\Http\Controllers\VehicleController::class);
+Route::post('users', [ApiController::class, 'register']);
+Route::post('login', [ApiController::class, 'authenticate']);
+
+Route::group(['middleware' => ['jwt.verify']], function () {
+    Route::get('logout', [ApiController::class, 'logout']);
+    Route::get('get_user', [ApiController::class, 'get_user']);
+
+    Route::apiResource("vehicles", \App\Http\Controllers\VehicleController::class);
+});

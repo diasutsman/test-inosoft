@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\VehicleSalesController;
 
 /*
@@ -22,29 +23,30 @@ Route::group(['jwt.verify'], function () {
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::get('me', [AuthController::class, 'me']);
-    Route::get('list-kendaraan', [VehicleSalesController::class, 'listAllKendaraan']);
-    Route::get('list-mobil', [VehicleSalesController::class, 'listKendaraanMobil']);
-    Route::get('list-motor', [VehicleSalesController::class, 'listKendaraanMotor']);
 
-    Route::get('detail-mobil/{id}', [VehicleSalesController::class, 'detailMobil']);
-    Route::get('detail-motor/{id}', [VehicleSalesController::class, 'detailMotor']);
+    // Vehicles
+    // Route::post('kendaraan', [VehicleSalesController::class, 'menambahkanKendaraan']);
+    // Route::put('update-kendaraan/{id}', [VehicleSalesController::class, 'updateKendaraan']);
+    // Route::get('list-kendaraan', [VehicleSalesController::class, 'listAllKendaraan']);
+    Route::apiResource('vehicles', VehicleController::class)->except('destroy');
 
-    Route::get('laporan-penjualan-mobil', [VehicleSalesController::class, 'laporanPenjualanMobil']);
-    Route::get('laporan-penjualan-motor', [VehicleSalesController::class, 'laporanPenjualanMotor']);
-
-    Route::put('update-kendaraan/{id}', [VehicleSalesController::class, 'updateKendaraan']);
-    Route::put('update-mobil/{id}', [VehicleSalesController::class, 'updateMobil']);
-    Route::put('update-motor/{id}', [VehicleSalesController::class, 'updateMotor']);
-
-    Route::delete('delete-mobil/{id}', [VehicleSalesController::class, 'deleteMobil']);
-    Route::delete('delete-motor/{id}', [VehicleSalesController::class, 'deleteMotor']);
-
-    Route::put('beli-mobil/{id}', [VehicleSalesController::class, 'penjualanMobil']);
-    Route::put('beli-motor/{id}', [VehicleSalesController::class, 'penjualanMotor']);
-
-    Route::post('kendaraan', [VehicleSalesController::class, 'menambahkanKendaraan']);
+    // Cars
     Route::post('mobil', [VehicleSalesController::class, 'menambahkanMobil']);
+    Route::get('list-mobil', [VehicleSalesController::class, 'listKendaraanMobil']);
+    Route::get('detail-mobil/{id}', [VehicleSalesController::class, 'detailMobil']);
+    Route::put('update-mobil/{id}', [VehicleSalesController::class, 'updateMobil']);
+    Route::delete('delete-mobil/{id}', [VehicleSalesController::class, 'deleteMobil']);
+    Route::get('laporan-penjualan-mobil', [VehicleSalesController::class, 'laporanPenjualanMobil']);
+    Route::put('beli-mobil/{id}', [VehicleSalesController::class, 'penjualanMobil']);
+
+    // Motors
     Route::post('motor', [VehicleSalesController::class, 'menambahkanMotor']);
+    Route::get('list-motor', [VehicleSalesController::class, 'listKendaraanMotor']);
+    Route::get('detail-motor/{id}', [VehicleSalesController::class, 'detailMotor']);
+    Route::put('update-motor/{id}', [VehicleSalesController::class, 'updateMotor']);
+    Route::delete('delete-motor/{id}', [VehicleSalesController::class, 'deleteMotor']);
+    Route::put('beli-motor/{id}', [VehicleSalesController::class, 'penjualanMotor']);
+    Route::get('laporan-penjualan-motor', [VehicleSalesController::class, 'laporanPenjualanMotor']);
 });
     
 

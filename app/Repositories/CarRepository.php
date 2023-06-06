@@ -77,8 +77,9 @@ class CarRepository
      * !Update functions
      */
 
-    public function updateCar(array $data, Car $car)
+    public function updateCar(array $data, string $id)
     {
+        $car = $this->car->find($id);
         $car->update($data);
         return $car;
     }

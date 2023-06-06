@@ -2,13 +2,9 @@
 
 namespace App\Services;
 
-use App\Models\Car;
-use App\Models\Vehicle;
 use App\Repositories\CarRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-use App\Repositories\VehicleRepository;
-use App\Repositories\VehicleSalesRepository;
 
 class CarService
 {
@@ -35,10 +31,10 @@ class CarService
         return $this->carRepository->carDetail($id);
     }
 
-    public function updateCar(Request $request, Car $vehicle) // this function is not used, only for complements
+    public function updateCar(Request $request, string $id) // this function is not used, only for complements
     {
         $vehicleData = $request->only(['year', 'color', 'price']);
-        return $this->carRepository->updateCar($vehicleData, $vehicle);
+        return $this->carRepository->updateCar($vehicleData, $id);
     }
 
     public function deleteCar($id)

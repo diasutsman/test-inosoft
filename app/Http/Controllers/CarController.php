@@ -59,12 +59,12 @@ class CarController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Car  $car
+     * @param  string  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Car $car)
+    public function update(Request $request, $id)
     {
-        return $this->formatApiResponse($this->carService->updateCar($request, $car), 200);
+        return $this->formatApiResponse($this->carService->updateCar($request, $id), 200);
     }
 
     /**

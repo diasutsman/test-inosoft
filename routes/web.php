@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +15,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $routes = Route::getRoutes();
+    $collection = [];
+    foreach ($routes as $value) {
+        if (Str::startsWith($value->uri, 'api')) {
+            $collection[] = collect($value)->only(['uri', 'methods'])
+                ->map(fn ($item, $key) => $key == 'methods' ? $item[0] : $item);
+        }
+    }
+
+    return $collection;
 });

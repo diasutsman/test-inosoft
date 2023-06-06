@@ -20,4 +20,9 @@ class Vehicle extends Moloquent
         'created_at',
         'updated_at',
     ];
+
+    public function motor()
+    {
+        return $this->hasOne(Motor::class);
+    }
 }

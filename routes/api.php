@@ -20,11 +20,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('users', [ApiController::class, 'register']);
-Route::post('login', [ApiController::class, 'authenticate']);
+Route::post('authentications', [ApiController::class, 'authenticate']);
 
 Route::group(['middleware' => ['jwt.verify']], function () {
-    Route::get('logout', [ApiController::class, 'logout']);
-    Route::get('get_user', [ApiController::class, 'get_user']);
-
-    Route::apiResource("vehicles", \App\Http\Controllers\VehicleController::class);
+    Route::delete('authentications', [ApiController::class, 'logout']);
+    Route::apiResource("vehicles", \App\Http\Controllers\VehicleController::class)->except('store');
+    Route::post('vehicles/motors', [\App\Http\Controllers\VehicleController::class, 'storeMotor']);
+    Route::post('vehicles/cars', [\App\Http\Controllers\VehicleController::class, 'storeCar']);
 });

@@ -24,7 +24,8 @@ class ApiController extends Controller
 
         //Send failed response if request is not valid
         if ($validator->fails()) {
-            return response()->json(['status' => 'fail', "message" => "Invalid Payload"], Response::HTTP_BAD_REQUEST);
+            $message = isset($validator->errors()->toArray()['email']) ? 'email tidak tersedia' : 'Invalid Payload';
+            return response()->json(['status' => 'fail', "message" => $message], Response::HTTP_BAD_REQUEST);
         }
 
         //Request is valid, create new user
@@ -50,12 +51,15 @@ class ApiController extends Controller
         //valid credential
         $validator = Validator::make($credentials, [
             'email' => 'required|email',
-            'password' => 'required|string|min:6|max:50'
+            'password' => 'required|string'
         ]);
 
         //Send failed response if request is not valid
         if ($validator->fails()) {
-            return response()->json(['error' => $validator->messages()], 200);
+            return response()->json([
+                'status' => 'fail',
+                'message' => 'Invalid Payload'
+            ], Response::HTTP_BAD_REQUEST);
         }
 
         //Request is validated
@@ -63,9 +67,9 @@ class ApiController extends Controller
         try {
             if (!$token = JWTAuth::attempt($credentials)) {
                 return response()->json([
-                    'success' => false,
+                    'status' => 'fail',
                     'message' => 'Login credentials are invalid.',
-                ], 400);
+                ], Response::HTTP_UNAUTHORIZED);
             }
         } catch (JWTException $e) {
             return response()->json([
@@ -76,9 +80,9 @@ class ApiController extends Controller
 
         //Token created, return with success response and jwt token
         return response()->json([
-            'success' => true,
+            'status' => 'success',
             'token' => $token,
-        ]);
+        ], Response::HTTP_CREATED);
     }
 
     public function logout(Request $request)
@@ -90,7 +94,10 @@ class ApiController extends Controller
 
         //Send failed response if request is not valid
         if ($validator->fails()) {
-            return response()->json(['error' => $validator->messages()], 200);
+            return response()->json([
+                'status' => 'fail',
+                'message' => 'Invalid Payload'
+            ], Response::HTTP_BAD_REQUEST);
         }
 
         //Request is validated, do logout
@@ -98,7 +105,7 @@ class ApiController extends Controller
             JWTAuth::invalidate($request->token);
 
             return response()->json([
-                'success' => true,
+                'status' => 'success',
                 'message' => 'User has been logged out'
             ]);
         } catch (JWTException $exception) {
@@ -107,16 +114,5 @@ class ApiController extends Controller
                 'message' => 'Sorry, user cannot be logged out'
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
-    }
-
-    public function get_user(Request $request)
-    {
-        $this->validate($request, [
-            'token' => 'required'
-        ]);
-
-        $user = JWTAuth::authenticate($request->token);
-
-        return response()->json(['user' => $user]);
     }
 }

@@ -13,13 +13,16 @@ class CreateMotorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('motors', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('vehicle_id')->constrained()->onDelete('cascade');
-            $table->string('machine');
-            $table->string('suspension_type');
-            $table->string('transmission_type');
-            $table->timestamps();
+        Schema::create('motors', function (Blueprint $collection) {
+            $collection->id();
+            $collection->foreignId('vehicle_id')->constrained()->onDelete('cascade');
+            $collection->string('name', 15);
+            $collection->string('machine', 10);
+            $collection->string('suspension_type', 20);
+            $collection->string('transmission_type', 10);
+            $collection->enum('type', ['ready', 'sold'])->default('ready');
+            $collection->date('sold_at')->nullable();
+            $collection->timestamps();
         });
     }
 

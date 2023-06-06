@@ -13,13 +13,16 @@ class CreateCarsTable extends Migration
      */
     public function up()
     {
-        Schema::create('cars', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('vehicle_id')->constrained()->onDelete('cascade');
-            $table->string('machine');
-            $table->integer('passenger_capacity');
-            $table->string('type');
-            $table->timestamps();
+        Schema::create('cars', function (Blueprint $collection) {
+            $collection->id();
+            $collection->foreignId('vehicle_id')->constrained()->onDelete('cascade');
+            $collection->string('name', 15);
+            $collection->string('machine', 10);
+            $collection->integer('passenger_capacity');
+            $collection->string('type', 10);
+            $collection->enum('status', ['ready', 'sold'])->default('ready');
+            $collection->date('sold_at')->nullable();
+            $collection->timestamps();
         });
     }
 

@@ -28,7 +28,7 @@ class CarRepository
      */
     // sales functions start
 
-    public function carSales(Car $car, array $data)
+    public function buy(Car $car, array $data)
     {
         if (!$car || $car->status === 'sold') {
             return 'vehicle not found';
@@ -45,7 +45,7 @@ class CarRepository
      * !Report functions
      */
     // report functions start
-    public function salesReport()
+    public function report()
     {
         return $this->car->where('status', 'sold')->get();
     }

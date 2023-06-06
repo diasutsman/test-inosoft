@@ -39,12 +39,12 @@ class VehicleController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Vehicle  $vehicle
+     * @param  string  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Vehicle $vehicle)
+    public function update(Request $request, $id)
     {
-        return $this->formatApiResponse($this->vehicleService->updateVehicle($request, $vehicle), 200);
+        return $this->formatApiResponse($this->vehicleService->updateVehicle($request, $id), 200);
     }
 
     /**

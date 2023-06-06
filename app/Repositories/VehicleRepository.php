@@ -84,8 +84,9 @@ class VehicleRepository
      * !Update functions
      */
 
-    public function updateVehicle(array $data, Vehicle $vehicle)
+    public function updateVehicle(array $data, $id)
     {
+        $vehicle = $this->vehicle->find($id);
         $vehicle->update($data);
         return $vehicle;
     }

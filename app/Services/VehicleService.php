@@ -33,9 +33,9 @@ class VehicleService
         return $this->vehicleRepository->vehicleDetail($id);
     }
 
-    public function updateVehicle(Request $request, Vehicle $vehicle) // this function is not used, only for complements
+    public function updateVehicle(Request $request, $id) // this function is not used, only for complements
     {
         $vehicleData = $request->only(['year', 'color', 'price']);
-        return $this->vehicleRepository->updateVehicle($vehicleData, $vehicle);
+        return $this->vehicleRepository->updateVehicle($vehicleData, $id);
     }
 }

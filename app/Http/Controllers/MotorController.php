@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Motor;
 use App\Helpers\FormatApi;
 use Illuminate\Http\Request;
 use App\Services\MotorService;
@@ -59,12 +58,12 @@ class MotorController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Motor  $car
+     * @param  string  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Motor $car)
+    public function update(Request $request, string $id)
     {
-        return $this->formatApiResponse($this->motorService->updateMotor($request, $car), 200);
+        return $this->formatApiResponse($this->motorService->updateMotor($request, $id), 200);
     }
 
     /**
@@ -78,14 +77,14 @@ class MotorController extends Controller
         return $this->formatApiResponse($this->motorService->deleteMotor($id), 200);
     }
 
-    public function report(Motor $car)
+    public function report()
     {
         return $this->formatApiResponse($this->motorService->report(), 200);
     }
 
-    public function buy(Request $request, Motor $car)
+    public function buy(Request $request, string $id)
     {
-        return $this->formatApiResponse($this->motorService->buy($request, $car), 200);
+        return $this->formatApiResponse($this->motorService->buy($request, $id), 200);
     }
 
     // format api dengan dinamis data dan status code

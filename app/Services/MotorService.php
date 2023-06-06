@@ -2,11 +2,9 @@
 
 namespace App\Services;
 
-use App\Models\Motor;
 use App\Repositories\MotorRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Motorbon;
 
 class MotorService
 {
@@ -33,10 +31,10 @@ class MotorService
         return $this->motorRepository->motorDetail($id);
     }
 
-    public function updateMotor(Request $request, Motor $motor) // this function is not used, only for complements
+    public function updateMotor(Request $request, string $id) // this function is not used, only for complements
     {
         $motorData = $request->only(['year', 'color', 'price']);
-        return $this->motorRepository->updateMotor($motorData, $motor);
+        return $this->motorRepository->updateMotor($motorData, $id);
     }
 
     public function deleteMotor($id)
@@ -53,7 +51,7 @@ class MotorService
         return $this->motorRepository->report();
     }
 
-    public function buy($id)
+    public function buy(string $id)
     {
         $motorSalesData = $this->generateSalesData();
         return $this->motorRepository->buy($id, $motorSalesData);

@@ -28,8 +28,9 @@ class MotorRepository
      */
     // sales functions start
 
-    public function buy(Motor $motor, array $data)
+    public function buy(string $id, array $data)
     {
+        $motor = $this->motor->find($id);
         if (!$motor || $motor->status === 'sold') {
             return 'motor not found';
         }
@@ -77,8 +78,9 @@ class MotorRepository
      * !Update functions
      */
 
-    public function updateMotor(array $data, Motor $motor)
+    public function updateMotor(array $data, string $id)
     {
+        $motor = $this->motor->find($id);
         $motor->update($data);
         return $motor;
     }

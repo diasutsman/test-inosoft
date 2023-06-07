@@ -101,21 +101,4 @@ class VehicleRepository
         return $vehicle->delete();
     }
     // Delete functions end
-
-    /**
-     * !Delete functions
-     */
-    // delete functions start
-    public function deleteData($model, $id)
-    {
-        $dataModel = $model->find($id);
-
-        if ($dataModel) {
-            $dataModel->delete();
-            return 'successfully deleted data';
-        }
-
-        return 'data not found!!';
-    }
-    // delete functions end
 }

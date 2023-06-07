@@ -14,7 +14,7 @@ class VehicleRepository
         $this->vehicle = $vehicle;
     }
 
-    public function filterByStatus($collection, $status = null)
+    private function filterByStatus($collection, $status = null)
     {
         return $collection->filter(fn ($item) => ($item->car ?? $item->motor)?->status === $status)->values();
     }

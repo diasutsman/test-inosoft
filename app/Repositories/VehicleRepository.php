@@ -41,26 +41,6 @@ class VehicleRepository
      * !Sales functions
      */
     // sales functions start
-    public function vehicleSales($id, array $data, $model)
-    {
-        $salesData = $model->find($id);
-
-        if ($salesData && !$salesData->status) {
-            $salesData->status = $data['status'];
-            $salesData->sold_date = $data['date'];
-            $salesData->save();
-
-            return $salesData;
-        }
-
-        return 'vehicle not found';
-    }
-    // sales functions end
-
-    /**
-     * !Sales functions
-     */
-    // sales functions start
     public function sales()
     {
         return $this->vehicle->where('status', 'sold')->get();
@@ -93,14 +73,10 @@ class VehicleRepository
      * !Detail functions
      */
     // detail functions start
-    public function getDetail($model, $id)
-    {
-        return $model->find($id);
-    }
 
-    public function vehicleDetail($id)
+    public function show($id)
     {
-        return $this->getDetail($this->vehicle, $id);
+        return $this->vehicle->find($id);
     }
     // detail functions end
 
@@ -108,13 +84,23 @@ class VehicleRepository
      * !Update functions
      */
 
-    public function updateVehicle(array $data, $id)
+    public function update(array $data, $id)
     {
         $vehicle = $this->vehicle->find($id);
-        $vehicle->update($data);
-        return $vehicle;
+        return $vehicle->update($data);
     }
     // update functions end
+
+    /**
+     * !Delete functions
+     */
+
+    public function delete($id)
+    {
+        $vehicle = $this->vehicle->find($id);
+        return $vehicle->delete();
+    }
+    // Delete functions end
 
     /**
      * !Delete functions

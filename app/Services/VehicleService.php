@@ -48,15 +48,19 @@ class VehicleService
         return $this->vehicleRepository->store($data);
     }
 
-    public function vehicleDetail($id)
+    public function show($id)
     {
-        return $this->vehicleRepository->vehicleDetail($id);
+        return $this->vehicleRepository->show($id);
     }
 
-    public function updateVehicle(Request $request, $id) // this function is not used, only for complements
+    public function update(array $data, $id) // this function is not used, only for complements
     {
-        $vehicleData = $request->only(['manufacture_year', 'color', 'price']);
-        return $this->vehicleRepository->updateVehicle($vehicleData, $id);
+        return $this->vehicleRepository->update($data, $id);
+    }
+
+    public function delete(string $id)
+    {
+        return $this->vehicleRepository->delete($id);
     }
 
     public function sales()

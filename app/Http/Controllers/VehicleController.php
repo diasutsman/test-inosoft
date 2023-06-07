@@ -40,6 +40,14 @@ class VehicleController extends Controller
         ], Response::HTTP_OK);
     }
 
+    public function show($id)
+    {
+        return response()->json([
+            'success' => true,
+            'data' => $this->vehicleService->show($id)
+        ], Response::HTTP_OK);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -71,18 +79,44 @@ class VehicleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return $this->formatApiResponse($this->vehicleService->updateVehicle($request, $id), Response::HTTP_OK);
+        $updated = $this->vehicleService->update($request->all(), $id);
+
+        if ($updated) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Vehicle Data on ID: ' . $id . ' updated!',
+                'data' => $request->all()
+            ], Response::HTTP_OK);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Vehicle Data on ID: ' . $id . ' failed to update!'
+            ], Response::HTTP_BAD_REQUEST);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Vehicle  $vehicle
+     * @param  string  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Vehicle $vehicle)
+    public function destroy($id)
     {
-        //
+        $deleted = $this->vehicleService->delete($id);
+        if ($deleted > 0) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Data Kendaraan on ID: ' . $id,
+                'credentials' => $deleted
+            ], Response::HTTP_OK);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Data Kendaraan on ID: ' . $id . ' failed to delete!',
+                'credentials' => $deleted
+            ], Response::HTTP_OK);
+        }
     }
 
     public function sales()

@@ -18,7 +18,7 @@ Make sure you have installed all of this requirement
 ## Guide To Use Project
 
 1. Download or clone the project first using `git`
-2. Go to the downloaded project directory `cd ..\<path>\<to>\<your project>\Test_Inosoft_Kendaraan`
+2. Go to the downloaded project directory `cd ..\<path>\<to>\<your project>\test-inosoft`
 3. Enter command `composer install`
 4. Copy the `.env.example` and rename it to `.env` and setup your `.env` like below:
     

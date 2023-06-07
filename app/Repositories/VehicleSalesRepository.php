@@ -49,7 +49,7 @@ class VehicleSalesRepository
 
         if ($salesData && !$salesData->status) {
             $salesData->status = $data['status'];
-            $salesData->sold_at = $data['date'];
+            $salesData->sold_date = $data['date'];
             $salesData->save();
 
             return $salesData;

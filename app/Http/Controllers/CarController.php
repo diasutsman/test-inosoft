@@ -33,14 +33,6 @@ class CarController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'nama_mobil' => 'required|string|max:15',
-            'mesin' => 'required|string|max:10',
-            'kapasitas_penumpang' => 'required|numeric|max:10',
-            'tipe' => 'required|string|max:10',
-            'id_kendaraan' => 'required|string'
-        ]);
-
         return $this->formatApiResponse($this->carService->addCar($request), 201);
     }
 
@@ -78,14 +70,14 @@ class CarController extends Controller
         return $this->formatApiResponse($this->carService->deleteCar($id), 200);
     }
 
-    public function report(Car $car)
+    public function report()
     {
         return $this->formatApiResponse($this->carService->report(), 200);
     }
 
-    public function buy(Request $request, Car $car)
+    public function buy($id)
     {
-        return $this->formatApiResponse($this->carService->buy($request, $car), 200);
+        return $this->formatApiResponse($this->carService->buy($id), 200);
     }
 
     // format api dengan dinamis data dan status code

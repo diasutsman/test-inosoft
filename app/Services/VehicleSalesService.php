@@ -54,7 +54,7 @@ class VehicleSalesService
 
     public function addVehicle(Request $request)
     {
-        $vehicleData = $request->only(['year', 'color', 'price']);
+        $vehicleData = $request->only(['manufacture_year', 'color', 'price']);
         return $this->vehicleSalesRepository->addVehicle($vehicleData);
     }
 
@@ -96,7 +96,7 @@ class VehicleSalesService
 
     public function updateVehicle(Request $request, $id) // this function is not used, only for complements
     {
-        $vehicleData = $request->only(['year', 'color', 'price']);
+        $vehicleData = $request->only(['manufacture_year', 'color', 'price']);
         return $this->vehicleSalesRepository->updateVehicle($vehicleData, $id);
     }
 

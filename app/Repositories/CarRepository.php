@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Car;
+use Illuminate\Support\Facades\Log;
 
 class CarRepository
 {
@@ -28,13 +29,14 @@ class CarRepository
      */
     // sales functions start
 
-    public function buy(Car $car, array $data)
+    public function buy($id, array $data)
     {
+        $car = $this->car->find($id);
         if (!$car || $car->status === 'sold') {
             return 'vehicle not found';
         }
         $car->status = $data['status'];
-        $car->sold_at = $data['date'];
+        $car->sold_date = $data['date'];
         $car->save();
 
         return $car;

@@ -15,7 +15,6 @@ class FormatApi
         self::$response['code'] = $code;
         self::$response['message'] = $message;
         self::$response['data'] = $data;
-
         return response()->json(self::$response, self::$response['code']);
     }
 }

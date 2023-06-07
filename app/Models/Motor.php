@@ -10,15 +10,15 @@ class Motor extends Moloquent
     use HasFactory;
 
     protected $guarded = [
-        'id',
+        '_id',
         'created_at',
         'updated_at',
     ];
 
     protected $hidden = [
-        '_id',
         'created_at',
         'updated_at',
+        'status',
     ];
 
     public function vehicle()

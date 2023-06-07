@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Vehicle;
 use App\Helpers\FormatApi;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Services\VehicleService;
 
 class VehicleController extends Controller
@@ -21,7 +22,7 @@ class VehicleController extends Controller
      */
     public function index()
     {
-        return $this->formatApiResponse($this->vehicleService->listAllVehicle(), 200);
+        return $this->formatApiResponse($this->vehicleService->listAllVehicle(), Response::HTTP_OK);
     }
 
     /**
@@ -32,7 +33,7 @@ class VehicleController extends Controller
      */
     public function store(Request $request)
     {
-        return $this->formatApiResponse($this->vehicleService->addVehicle($request), 200);
+        return $this->formatApiResponse($this->vehicleService->addVehicle($request), Response::HTTP_CREATED);
     }
 
     /**
@@ -44,7 +45,7 @@ class VehicleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return $this->formatApiResponse($this->vehicleService->updateVehicle($request, $id), 200);
+        return $this->formatApiResponse($this->vehicleService->updateVehicle($request, $id), Response::HTTP_OK);
     }
 
     /**

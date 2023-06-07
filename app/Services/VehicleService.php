@@ -2,11 +2,13 @@
 
 namespace App\Services;
 
+use App\Helpers\FormatApi;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Repositories\VehicleRepository;
-use App\Repositories\VehicleSalesRepository;
+
+use Illuminate\Support\Facades\Validator;
 
 class VehicleService
 {
@@ -24,7 +26,17 @@ class VehicleService
 
     public function addVehicle(Request $request)
     {
-        $vehicleData = $request->only(['year', 'color', 'price']);
+        $validator = Validator::make($request->all(), [
+            'manufacture_year' => 'required|integer',
+            'color' => 'required|string',
+            'price' => 'required|numeric',
+        ]);
+
+        if ($validator->fails()) {
+            return null;
+        }
+
+        $vehicleData = $validator->validated();
         return $this->vehicleRepository->addVehicle($vehicleData);
     }
 
@@ -35,7 +47,7 @@ class VehicleService
 
     public function updateVehicle(Request $request, $id) // this function is not used, only for complements
     {
-        $vehicleData = $request->only(['year', 'color', 'price']);
+        $vehicleData = $request->only(['manufacture_year', 'color', 'price']);
         return $this->vehicleRepository->updateVehicle($vehicleData, $id);
     }
 }

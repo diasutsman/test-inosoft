@@ -53,7 +53,7 @@ class VehicleSalesController extends Controller
     public function addVehicle(Request $request)
     {
         $validatedData = $request->validate([
-            'year' => 'required|date',
+            'manufacture_year' => 'required|date',
             'color' => 'required|string|max:10',
             'price' => 'required|numeric|max:500000000'
         ]);

@@ -21,7 +21,7 @@ use App\Http\Controllers\VehicleSalesController;
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 
-Route::group(['jwt.verify'], function () {
+Route::group(['middleware' => ['jwt.verify']], function () {
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::get('me', [AuthController::class, 'me']);
@@ -40,9 +40,9 @@ Route::group(['jwt.verify'], function () {
     // Route::delete('delete-mobil/{id}', [VehicleSalesController::class, 'deleteMobil']);
     // Route::get('laporan-penjualan-mobil', [VehicleSalesController::class, 'laporanPenjualanMobil']);
     // Route::put('beli-mobil/{id}', [VehicleSalesController::class, 'penjualanMobil']);
-    Route::apiResource('cars', CarController::class);
     Route::get('cars/report', [CarController::class, 'report']);
     Route::put('cars/{id}/buy', [CarController::class, 'buy']);
+    Route::apiResource('cars', CarController::class);
 
     // Motors
     // Route::post('motor', [VehicleSalesController::class, 'menambahkanMotor']);
@@ -52,9 +52,9 @@ Route::group(['jwt.verify'], function () {
     // Route::delete('delete-motor/{id}', [VehicleSalesController::class, 'deleteMotor']);
     // Route::put('beli-motor/{id}', [VehicleSalesController::class, 'penjualanMotor']);
     // Route::get('laporan-penjualan-motor', [VehicleSalesController::class, 'laporanPenjualanMotor']);
-    Route::apiResource('motors', MotorController::class);
     Route::get('motors/report', [MotorController::class, 'report']);
     Route::put('motors/{motor}/buy', [MotorController::class, 'buy']);
+    Route::apiResource('motors', MotorController::class);
 });
     
 

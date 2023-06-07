@@ -35,7 +35,7 @@ class MotorRepository
             return 'motor not found';
         }
         $motor->status = $data['status'];
-        $motor->sold_at = $data['date'];
+        $motor->sold_date = $data['date'];
         $motor->save();
 
         return $motor;

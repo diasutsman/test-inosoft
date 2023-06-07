@@ -8,10 +8,8 @@ use App\Services\MotorService;
 
 class MotorController extends Controller
 {
-    private $motorService;
-    public function __construct(MotorService $motorService)
+    public function __construct(private MotorService $motorService)
     {
-        $this->motorService = $motorService;
     }
 
     /**
@@ -32,14 +30,6 @@ class MotorController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'nama_mobil' => 'required|string|max:15',
-            'mesin' => 'required|string|max:10',
-            'kapasitas_penumpang' => 'required|numeric|max:10',
-            'tipe' => 'required|string|max:10',
-            'id_kendaraan' => 'required|string'
-        ]);
-
         return $this->formatApiResponse($this->motorService->addMotor($request), 201);
     }
 
@@ -82,16 +72,16 @@ class MotorController extends Controller
         return $this->formatApiResponse($this->motorService->report(), 200);
     }
 
-    public function buy(Request $request, string $id)
+    public function buy(string $id)
     {
-        return $this->formatApiResponse($this->motorService->buy($request, $id), 200);
+        return FormatApi::formatResponse(200, 'success', $this->motorService->buy($id));
     }
 
     // format api dengan dinamis data dan status code
     private function formatApiResponse($data, $statusCode)
     {
         if ($data) {
-            return FormatApi::formatResponse($statusCode, 'Success', $data);
+            return FormatApi::formatResponse($statusCode, 'success', $data);
         } else {
             return FormatApi::formatResponse(400, 'Gagal');
         }

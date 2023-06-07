@@ -5,10 +5,18 @@ namespace App\Services;
 use App\Repositories\CarRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Validator;
 
 class CarService
 {
     private $carRepository;
+    private $rules = [
+        'name' => 'required|string',
+        'machine' => 'required|string',
+        'passenger_capacity' => 'required|integer',
+        'type' => 'required|string',
+        'vehicle_id' => 'required|exists:vehicles,_id'
+    ];
 
     public function __construct(CarRepository $carRepository)
     {
@@ -22,7 +30,13 @@ class CarService
 
     public function addCar(Request $request)
     {
-        $vehicleData = $request->only(['year', 'color', 'price']);
+        $validator = Validator::make($request->all(), $this->rules);
+
+        if ($validator->fails()) {
+            return null;
+        }
+
+        $vehicleData = $validator->validated();
         return $this->carRepository->addCar($vehicleData);
     }
 
@@ -33,16 +47,18 @@ class CarService
 
     public function updateCar(Request $request, string $id) // this function is not used, only for complements
     {
-        $vehicleData = $request->only(['year', 'color', 'price']);
-        return $this->carRepository->updateCar($vehicleData, $id);
+        $validator = Validator::make($request->all(), $this->rules);
+
+        if ($validator->fails()) {
+            return null;
+        }
+
+        $carData = $validator->validated();
+        return $this->carRepository->updateCar($carData, $id);
     }
 
     public function deleteCar($id)
     {
-        if (!$this->carDetail($id)) { // check if car exist
-            return 'car not found';
-        }
-
         return $this->carRepository->deleteCar($id);
     }
 

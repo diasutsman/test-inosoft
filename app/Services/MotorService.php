@@ -5,10 +5,20 @@ namespace App\Services;
 use App\Repositories\MotorRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 
 class MotorService
 {
     private $motorRepository;
+
+    private $rules = [
+        'name' => 'required',
+        'machine' => 'required',
+        'suspension_type' => 'required',
+        'transmission_type' => 'required',
+        'vehicle_id' => 'required|exists:vehicles,_id'
+    ];
 
     public function __construct(MotorRepository $motorRepository)
     {
@@ -22,7 +32,13 @@ class MotorService
 
     public function addMotor(Request $request)
     {
-        $motorData = $request->only(['year', 'color', 'price']);
+        $validator = Validator::make($request->all(), $this->rules);
+
+        if ($validator->fails()) {
+            return null;
+        }
+
+        $motorData = $request->only(['manufacture_year', 'color', 'price']);
         return $this->motorRepository->addMotor($motorData);
     }
 
@@ -33,7 +49,13 @@ class MotorService
 
     public function updateMotor(Request $request, string $id) // this function is not used, only for complements
     {
-        $motorData = $request->only(['year', 'color', 'price']);
+        $validator = Validator::make($request->all(), $this->rules);
+
+        if ($validator->fails()) {
+            return null;
+        }
+        
+        $motorData = $validator->validated();
         return $this->motorRepository->updateMotor($motorData, $id);
     }
 

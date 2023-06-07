@@ -13,6 +13,11 @@ class MotorRepository
         $this->motor = $motor;
     }
 
+    public function store($data)
+    {
+        return $this->motor->create($data);
+    }
+
     /**
      * !List functions
      */

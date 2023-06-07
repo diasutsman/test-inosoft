@@ -35,6 +35,11 @@ class MotorService extends VehicleService
         return $data;
     }
 
+    public function store($data)
+    {
+        return $this->motorRepository->store($data);
+    }
+
     public function getAllMotors()
     {
         return $this->motorRepository->getAllMotors();

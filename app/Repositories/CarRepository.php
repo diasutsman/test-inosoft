@@ -24,6 +24,11 @@ class CarRepository
     }
     // List functions end
 
+    public function store($data)
+    {
+        return $this->car->create($data);
+    }
+
     /**
      * !Sales functions
      */

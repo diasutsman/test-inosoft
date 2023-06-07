@@ -32,6 +32,11 @@ class CarService extends VehicleService
         return $data;
     }
 
+    public function store($data)
+    {
+        return $this->carRepository->store($data);
+    }
+
     public function getAllCars()
     {
         return $this->carRepository->getAllCars();

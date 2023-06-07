@@ -56,10 +56,12 @@ class VehicleController extends Controller
      */
     public function store(Request $request)
     {
-        if ($request->tipe_kendaraan == 'mobil') {
+        if ($request->tipe_kendaraan == 'car') {
             $validatedData = $this->carService->validator($request->all());
+            $this->carService->store($validatedData);
         } else if ($request->tipe_kendaraan == 'motor') {
             $validatedData = $this->motorService->validator($request->all());
+            $this->motorService->store($validatedData);
         } else {
             return response()->json(['error' => 'Invalid vehicle type'], Response::HTTP_BAD_REQUEST);
         }

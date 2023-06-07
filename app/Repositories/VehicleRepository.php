@@ -69,7 +69,7 @@ class VehicleRepository
 
     public function show($id)
     {
-        return $this->vehicle->find($id);
+        return $this->vehicle->with(['motor', 'car'])->find($id);
     }
     // detail functions end
 

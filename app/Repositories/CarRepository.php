@@ -21,8 +21,8 @@ class CarRepository
     public function getAllCars()
     {
         return $this->car->with('vehicle')->get()->map(function ($item) {
-            $item->_id = $item->vehicle->_id;
-            unset($item->vehicle->_id);
+            $item->_id = $item->vehicle_id;
+            unset($item->vehicle_id);
             return $item;
         });
     }

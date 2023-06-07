@@ -44,7 +44,20 @@ class VehicleTest extends TestCase
         $user = User::where('email', "jokodoe@gmail.com")->first();
         $token = JWTAuth::fromUser($user);
 
-        $id = random_int(0, 5);
+        $vehicle = Vehicle::create([
+            "manufacture_year" => random_int(2000, 2022),
+            "color" => Str::random(6),
+            "price" => 120000000,
+            "vehicle_type" => "car",
+            "machine" => "diesel",
+            "suspension_type" => null,
+            "transmission_type" => null,
+            "status" => "ready",
+            "type" => Str::random(3),
+            "passenger_capacity" => random_int(1, 6),
+        ]);
+
+        $id = $vehicle->id;
 
         $response = $this->get('api/vehicles/' . $id . '?token=' . $token);
 

@@ -10,7 +10,6 @@ class Motor extends Moloquent
     use HasFactory;
 
     protected $guarded = [
-        '_id',
         'created_at',
         'updated_at',
     ];

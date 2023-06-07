@@ -24,7 +24,12 @@ class MotorRepository
     // List functions start
     public function getAllMotors()
     {
-        return $this->motor->with('vehicle')->get();
+        return $this->motor->with('vehicle')->get()->map(function ($item) {
+            $item->_id = $item->vehicle->_id;
+            unset($item->vehicle->_id);
+            unset($item->vehicle_id);
+            return $item;
+        });
     }
     // List functions end
 
@@ -34,7 +39,12 @@ class MotorRepository
     // sales functions start
     public function sales()
     {
-        return $this->motor->with('vehicle')->where('status', 'sold')->get();
+        return $this->motor->with('vehicle')->where('status', 'sold')->get()->map(function ($item) {
+            $item->_id = $item->vehicle->_id;
+            unset($item->vehicle->_id);
+            unset($item->vehicle_id);
+            return $item;
+        });
     }
     // sales functions end
 
@@ -44,7 +54,12 @@ class MotorRepository
     // sales functions start
     public function stock()
     {
-        return $this->motor->with('vehicle')->where('status', 'ready')->get();
+        return $this->motor->with('vehicle')->where('status', 'ready')->get()->map(function ($item) {
+            $item->_id = $item->vehicle->_id;
+            unset($item->vehicle->_id);
+            unset($item->vehicle_id);
+            return $item;
+        });
     }
     // sales functions end
 }

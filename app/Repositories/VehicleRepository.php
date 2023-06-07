@@ -82,7 +82,7 @@ class VehicleRepository
      * !Create functions
      */
     // create functions start
-    public function addVehicle(array $data)
+    public function store(array $data)
     {
         return $this->vehicle->create($data);
     }

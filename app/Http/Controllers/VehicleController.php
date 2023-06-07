@@ -4,17 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Models\Vehicle;
 use App\Helpers\FormatApi;
+use App\Services\CarService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\Services\MotorService;
 use App\Services\VehicleService;
 
 class VehicleController extends Controller
 {
-    private VehicleService $vehicleService;
-    public function __construct(VehicleService $vehicleService)
-    {
-        $this->vehicleService = $vehicleService;
+    public function __construct(
+        private VehicleService $vehicleService,
+        private CarService $carService,
+        private MotorService $motorService
+    ) {
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -44,7 +48,18 @@ class VehicleController extends Controller
      */
     public function store(Request $request)
     {
-        return $this->formatApiResponse($this->vehicleService->addVehicle($request), Response::HTTP_CREATED);
+        if ($request->tipe_kendaraan == 'mobil') {
+            $validatedData = $this->carService->validator($request->all());
+        } else if ($request->tipe_kendaraan == 'motor') {
+            $validatedData = $this->motorService->validator($request->all());
+        } else {
+            return response()->json(['error' => 'Invalid vehicle type'], Response::HTTP_BAD_REQUEST);
+        }
+
+        return response()->json([
+            'success' => true,
+            'data' => $this->vehicleService->store($validatedData)
+        ], Response::HTTP_OK);
     }
 
     /**

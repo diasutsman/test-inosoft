@@ -12,60 +12,14 @@ class MotorService
 {
     private $motorRepository;
 
-    private $rules = [
-        'name' => 'required',
-        'machine' => 'required',
-        'suspension_type' => 'required',
-        'transmission_type' => 'required',
-        'vehicle_id' => 'required|exists:vehicles,_id'
-    ];
-
     public function __construct(MotorRepository $motorRepository)
     {
         $this->motorRepository = $motorRepository;
     }
 
-    public function listMotorVehicles()
+    public function getAllMotors()
     {
-        return $this->motorRepository->listMotorVehicles();
-    }
-
-    public function addMotor(Request $request)
-    {
-        $validator = Validator::make($request->all(), $this->rules);
-
-        if ($validator->fails()) {
-            return null;
-        }
-
-        $motorData = $request->only(['manufacture_year', 'color', 'price']);
-        return $this->motorRepository->addMotor($motorData);
-    }
-
-    public function motorDetail($id)
-    {
-        return $this->motorRepository->motorDetail($id);
-    }
-
-    public function updateMotor(Request $request, string $id) // this function is not used, only for complements
-    {
-        $validator = Validator::make($request->all(), $this->rules);
-
-        if ($validator->fails()) {
-            return null;
-        }
-
-        $motorData = $validator->validated();
-        return $this->motorRepository->updateMotor($motorData, $id);
-    }
-
-    public function deleteMotor($id)
-    {
-        if (!$this->motorDetail($id)) { // check if motor exist
-            return 'motor not found';
-        }
-
-        return $this->motorRepository->deleteMotor($id);
+        return $this->motorRepository->getAllMotors();
     }
 
     public function sales()
@@ -73,20 +27,8 @@ class MotorService
         return $this->motorRepository->sales();
     }
 
-    public function buy(string $id)
+    public function stock()
     {
-        $motorSalesData = $this->generateSalesData();
-        return $this->motorRepository->buy($id, $motorSalesData);
-    }
-
-    private function generateSalesData()
-    {
-        $now = Carbon::now('Asia/Jakarta');
-        $formattedDate = $now->format('d/m/Y');
-
-        return [
-            'status' => 'sold',
-            'date' => $formattedDate,
-        ];
+        return $this->motorRepository->stock();
     }
 }

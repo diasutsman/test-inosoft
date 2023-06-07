@@ -17,30 +17,11 @@ class MotorRepository
      * !List functions
      */
     // List functions start
-    public function listMotorVehicles()
+    public function getAllMotors()
     {
         return $this->motor->select('_id', 'name')->get();
     }
     // List functions end
-
-    /**
-     * !Sales functions
-     */
-    // sales functions start
-
-    public function buy(string $id, array $data)
-    {
-        $motor = $this->motor->find($id);
-        if (!$motor || $motor->status === 'sold') {
-            return 'motor not found';
-        }
-        $motor->status = $data['status'];
-        $motor->sold_date = $data['date'];
-        $motor->save();
-
-        return $motor;
-    }
-    // sales functions end
 
     /**
      * !Sales functions
@@ -52,53 +33,13 @@ class MotorRepository
     }
     // sales functions end
 
-
     /**
-     * !Create functions
+     * !Sales functions
      */
-    // create functions start
-    public function addMotor(array $data)
+    // sales functions start
+    public function stock()
     {
-        return $this->motor->create($data);
+        return $this->motor->where('status', 'ready')->get();
     }
-    // create functions end
-
-
-    /**
-     * !Detail functions
-     */
-    // detail functions start
-    public function motorDetail($id)
-    {
-        return $this->motor->find($id);
-    }
-    // detail functions end
-
-    /**
-     * !Update functions
-     */
-
-    public function updateMotor(array $data, string $id)
-    {
-        $motor = $this->motor->find($id);
-        $motor->update($data);
-        return $motor;
-    }
-    // update functions end
-
-    /**
-     * !Delete functions
-     */
-    // delete functions start
-    public function deleteMotor($id)
-    {
-        $dataModel = $this->motor->find($id);
-
-        if (!$dataModel) {
-            return 'data not found!!';
-        }
-        $dataModel->delete();
-        return 'successfully deleted data';
-    }
-    // delete functions end
+    // sales functions end
 }

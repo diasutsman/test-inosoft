@@ -22,7 +22,18 @@ class VehicleController extends Controller
      */
     public function index()
     {
-        return $this->formatApiResponse($this->vehicleService->listAllVehicle(), Response::HTTP_OK);
+        $all = $this->vehicleService->getAllVehicles();
+        if ($all->count() <= 0) {
+            return response()->json([
+                'success' => false,
+                'data' => $all
+            ], Response::HTTP_OK);
+        }
+
+        return response()->json([
+            'success' => true,
+            'data' => $all
+        ], Response::HTTP_OK);
     }
 
     /**
@@ -57,6 +68,42 @@ class VehicleController extends Controller
     public function destroy(Vehicle $vehicle)
     {
         //
+    }
+
+    public function sales()
+    {
+        $sales = $this->vehicleService->sales();
+        if ($sales->count() <= 0) {
+            return response()->json([
+                'success' => false,
+                'amount_sold' => 'No sales available',
+                'data' => $sales
+            ], Response::HTTP_OK);
+        }
+
+        return response()->json([
+            'success' => true,
+            'amount_sold' => $sales->count(),
+            'data' => $sales
+        ], Response::HTTP_OK);
+    }
+
+    public function stock()
+    {
+        $stock = $this->vehicleService->stock();
+        if ($stock->count() <= 0) {
+            return response()->json([
+                'success' => false,
+                'amount_sold' => 'No stock available',
+                'data' => $stock
+            ], Response::HTTP_OK);
+        }
+
+        return response()->json([
+            'success' => true,
+            'amount_sold' => $stock->count(),
+            'data' => $stock
+        ], Response::HTTP_OK);
     }
 
     // format api dengan dinamis data dan status code

@@ -18,7 +18,7 @@ class VehicleRepository
      * !List functions
      */
     // List functions start
-    public function listAllVehicle()
+    public function getAllVehicles()
     {
         return $this->vehicle->with(['motor', 'car'])
             ->get()
@@ -61,9 +61,19 @@ class VehicleRepository
      * !Sales functions
      */
     // sales functions start
-    public function salesReport($model)
+    public function sales()
     {
-        return $model->where('status', 'sold')->get();
+        return $this->vehicle->where('status', 'sold')->get();
+    }
+    // sales functions end
+
+    /**
+     * !Sales functions
+     */
+    // sales functions start
+    public function stock()
+    {
+        return $this->vehicle->where('status', 'ready')->get();
     }
     // sales functions end
 

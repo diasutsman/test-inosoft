@@ -19,9 +19,9 @@ class VehicleService
         $this->vehicleRepository = $vehicleRepository;
     }
 
-    public function listAllVehicle()
+    public function getAllVehicles()
     {
-        return $this->vehicleRepository->listAllVehicle();
+        return $this->vehicleRepository->getAllVehicles();
     }
 
     public function addVehicle(Request $request)
@@ -49,5 +49,15 @@ class VehicleService
     {
         $vehicleData = $request->only(['manufacture_year', 'color', 'price']);
         return $this->vehicleRepository->updateVehicle($vehicleData, $id);
+    }
+
+    public function sales()
+    {
+        return $this->vehicleRepository->sales();
+    }
+
+    public function stock()
+    {
+        return $this->vehicleRepository->stock();
     }
 }

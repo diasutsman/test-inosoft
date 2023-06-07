@@ -51,6 +51,7 @@ class CarController extends Controller
 
         return response()->json([
             'success' => true,
+            'stock' => $stock->count(),
             'data' => $stock,
         ], Response::HTTP_OK);
     }

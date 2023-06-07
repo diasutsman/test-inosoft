@@ -145,14 +145,14 @@ class VehicleController extends Controller
         if ($stock->count() <= 0) {
             return response()->json([
                 'success' => false,
-                'amount_sold' => 'No stock available',
+                'stock' => 'No stock available',
                 'data' => $stock
             ], Response::HTTP_OK);
         }
 
         return response()->json([
             'success' => true,
-            'amount_sold' => $stock->count(),
+            'stock' => $stock->count(),
             'data' => $stock
         ], Response::HTTP_OK);
     }

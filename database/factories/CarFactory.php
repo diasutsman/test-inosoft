@@ -14,13 +14,15 @@ class CarFactory extends Factory
      */
     public function definition()
     {
+        $status = $this->faker->randomElement(['ready', 'sold']);
+        $vehicle = Vehicle::factory()->create();
         return [
             'machine' => $this->faker->randomElement(['1200cc', '1500cc', '1800cc', '2000cc']),
             'passenger_capacity' => $this->faker->numberBetween(2, 7),
             'type' => $this->faker->randomElement(['sedan', 'hatchback', 'suv', 'mpv']),
-            'status' => $this->faker->randomElement(['ready', 'sold']),
-            'sold_date' => $this->faker->randomElement([null, $this->faker->date()]),
-            'vehicle_id' => Vehicle::all()->random()->id,
+            'status' => $status,
+            'sold_date' => $status === 'ready' ? null : $this->faker->date(),
+            'vehicle_id' => $vehicle->id,
         ];
     }
 }

@@ -14,26 +14,19 @@ class VehicleRepository
         $this->vehicle = $vehicle;
     }
 
+    public function filterByStatus($collection, $status = null)
+    {
+        return $collection->filter(fn ($item) => ($item->car ?? $item->motor)?->status === $status)->values();
+    }
+
     /**
      * !List functions
      */
     // List functions start
     public function getAllVehicles()
     {
-        return $this->vehicle->with(['motor', 'car'])
-            ->get()
-            ->filter(fn ($item) => $item->car || $item->motor)
-            ->map(function ($item) {
-                return [
-                    'id' => $item->id,
-                    'manufacture_year' => $item->manufacture_year,
-                    'color' => $item->color,
-                    'price' => $item->price,
-                    ...($item->car ?? $item->motor ?? collect())
-                        ->toArray(),
-                    'is' => 'a ' . ($item->car ? 'car' : 'motor')
-                ];
-            })->values();
+        return $this->vehicle->with(['car', 'motor'])
+            ->get();
     }
     // List functions end
 
@@ -43,7 +36,7 @@ class VehicleRepository
     // sales functions start
     public function sales()
     {
-        return $this->vehicle->where('status', 'sold')->get();
+        return $this->filterByStatus($this->vehicle->with(['car', 'motor'])->get(), 'sold');
     }
     // sales functions end
 
@@ -53,7 +46,7 @@ class VehicleRepository
     // sales functions start
     public function stock()
     {
-        return $this->vehicle->where('status', 'ready')->get();
+        return $this->filterByStatus($this->vehicle->with(['car', 'motor'])->get(), 'ready');
     }
     // sales functions end
 

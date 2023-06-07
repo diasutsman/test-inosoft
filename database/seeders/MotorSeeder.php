@@ -15,6 +15,6 @@ class MotorSeeder extends Seeder
      */
     public function run()
     {
-        Motor::factory(10)->create();
+        Motor::factory(15)->create();
     }
 }

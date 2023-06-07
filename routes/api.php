@@ -5,7 +5,6 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\MotorController;
 use App\Http\Controllers\VehicleController;
-use App\Http\Controllers\VehicleSalesController;
 
 /*
 |--------------------------------------------------------------------------

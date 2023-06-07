@@ -80,7 +80,7 @@ class VehicleRepository
     public function update(array $data, $id)
     {
         $vehicle = $this->vehicle->find($id);
-        return $vehicle->update($data);
+        return $vehicle?->update($data);
     }
     // update functions end
 
@@ -91,7 +91,7 @@ class VehicleRepository
     public function delete($id)
     {
         $vehicle = $this->vehicle->find($id);
-        return $vehicle->delete();
+        return $vehicle?->delete();
     }
     // Delete functions end
 }

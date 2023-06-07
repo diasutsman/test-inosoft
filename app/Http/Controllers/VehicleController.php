@@ -42,10 +42,11 @@ class VehicleController extends Controller
 
     public function show($id)
     {
+        $vehicle = $this->vehicleService->show($id);
         return response()->json([
-            'success' => true,
-            'data' => $this->vehicleService->show($id)
-        ], Response::HTTP_OK);
+            'success' => (bool) $vehicle,
+            'data' => $vehicle
+        ], (bool) $vehicle ? Response::HTTP_OK : Response::HTTP_NOT_FOUND);
     }
 
     /**
@@ -93,7 +94,7 @@ class VehicleController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Vehicle Data on ID: ' . $id . ' failed to update!'
-            ], Response::HTTP_BAD_REQUEST);
+            ], Response::HTTP_NOT_FOUND);
         }
     }
 
@@ -117,7 +118,7 @@ class VehicleController extends Controller
                 'success' => false,
                 'message' => 'Data Kendaraan on ID: ' . $id . ' failed to delete!',
                 'credentials' => $deleted
-            ], Response::HTTP_OK);
+            ], Response::HTTP_NOT_FOUND);
         }
     }
 

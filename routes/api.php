@@ -19,9 +19,9 @@ use App\Http\Controllers\VehicleSalesController;
 */
 
 Route::post('register', [AuthController::class, 'register']);
-Route::post('login', [AuthController::class, 'login'])->name('login');
+Route::post('login', [AuthController::class, 'login']);
 
-Route::group(['middleware' => ['jwt.auth']], function () {
+Route::group(['middleware' => ['jwt.verify']], function () {
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::get('me', [AuthController::class, 'me']);
@@ -41,12 +41,3 @@ Route::group(['middleware' => ['jwt.auth']], function () {
     Route::get('motors/sales', [MotorController::class, 'sales']);
     Route::get('motors/stock', [MotorController::class, 'stock']);
 });
-    
-
-
-// Route::group(['middleware' => ['jwt.verify']], function () {
-//     Route::delete('authentications', [ApiController::class, 'logout']);
-//     Route::apiResource("vehicles", \App\Http\Controllers\VehicleController::class)->except('store');
-//     Route::post('vehicles/motors', [\App\Http\Controllers\VehicleController::class, 'storeMotor']);
-//     Route::post('vehicles/cars', [\App\Http\Controllers\VehicleController::class, 'storeCar']);
-// });

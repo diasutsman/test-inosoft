@@ -13,7 +13,6 @@ class ApiController extends Controller
 {
     public function register(Request $request)
     {
-        // dd($request->all());
         //Validate data
         $data = $request->only('name', 'email', 'password');
         $validator = Validator::make($data, [

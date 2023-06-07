@@ -10,79 +10,24 @@ use Illuminate\Support\Facades\Validator;
 class CarService
 {
     private $carRepository;
-    private $rules = [
-        'name' => 'required|string',
-        'machine' => 'required|string',
-        'passenger_capacity' => 'required|integer',
-        'type' => 'required|string',
-
-    ];
 
     public function __construct(CarRepository $carRepository)
     {
         $this->carRepository = $carRepository;
     }
 
-    public function listCarVehicles()
+    public function getAllCars()
     {
-        return $this->carRepository->listCarVehicles();
+        return $this->carRepository->getAllCars();
     }
 
-    public function addCar(Request $request)
+    public function sales()
     {
-        $validator = Validator::make($request->all(), array_merge($this->rules, [
-            'vehicle_id' => 'required|exists:vehicles,_id|unique:cars,vehicle_id'
-        ]));
-
-        if ($validator->fails()) {
-            return null;
-        }
-
-        $vehicleData = $validator->validated();
-        return $this->carRepository->addCar($vehicleData);
+        return $this->carRepository->sales();
     }
 
-    public function carDetail($id)
+    public function stock()
     {
-        return $this->carRepository->carDetail($id);
-    }
-
-    public function updateCar(Request $request, string $id) // this function is not used, only for complements
-    {
-        $validator = Validator::make($request->all(), $this->rules);
-
-        if ($validator->fails()) {
-            return null;
-        }
-
-        $carData = $validator->validated();
-        return $this->carRepository->updateCar($carData, $id);
-    }
-
-    public function deleteCar($id)
-    {
-        return $this->carRepository->deleteCar($id);
-    }
-
-    public function report()
-    {
-        return $this->carRepository->report();
-    }
-
-    public function buy($id)
-    {
-        $carSalesData = $this->generateSalesData();
-        return $this->carRepository->buy($id, $carSalesData);
-    }
-
-    private function generateSalesData()
-    {
-        $now = Carbon::now('Asia/Jakarta');
-        $formattedDate = $now->format('d/m/Y');
-
-        return [
-            'status' => 'sold',
-            'date' => $formattedDate,
-        ];
+        return $this->carRepository->sales();
     }
 }

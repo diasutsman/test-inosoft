@@ -30,14 +30,14 @@ Route::group(['middleware' => ['jwt.verify']], function () {
     Route::apiResource('vehicles', VehicleController::class)->except('destroy');
 
     // Cars
-    Route::get('cars/report', [CarController::class, 'report']);
-    Route::put('cars/{id}/buy', [CarController::class, 'buy']);
-    Route::apiResource('cars', CarController::class);
+    Route::get('cars/sales', [CarController::class, 'sales']);
+    Route::get('cars/stock', [CarController::class, 'stock']);
+    Route::get('cars/all', [CarController::class, 'index']);
 
     // Motors
-    Route::get('motors/report', [MotorController::class, 'report']);
-    Route::put('motors/{motor}/buy', [MotorController::class, 'buy']);
-    Route::apiResource('motors', MotorController::class);
+    Route::get('motors/sales', [MotorController::class, 'sales']);
+    Route::get('motors/stock', [MotorController::class, 'stock']);
+    Route::get('motors/all', [MotorController::class, 'index']);
 });
     
 

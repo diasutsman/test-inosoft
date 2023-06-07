@@ -43,14 +43,14 @@ class MotorRepository
     // sales functions end
 
     /**
-     * !Report functions
+     * !Sales functions
      */
-    // report functions start
-    public function report()
+    // sales functions start
+    public function sales()
     {
         return $this->motor->where('status', 'sold')->get();
     }
-    // report functions end
+    // sales functions end
 
 
     /**

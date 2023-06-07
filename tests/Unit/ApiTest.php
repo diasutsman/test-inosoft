@@ -140,7 +140,7 @@ class ApiTest extends BaseTestCase
 
     public function test_carSalesReport_without_token()
     {
-        $response = $this->get('/api/cars/report');
+        $response = $this->get('/api/cars/sales');
 
         $response->assertStatus(401);
     }
@@ -151,14 +151,14 @@ class ApiTest extends BaseTestCase
 
         $response = $this->withHeaders([
             'Authorization' => 'Bearer ' . $token, // Include token in request header
-        ])->get('/api/cars/report');
+        ])->get('/api/cars/sales');
 
         $response->assertStatus(200);
     }
 
     public function test_motorcycleSalesReport_without_token()
     {
-        $response = $this->get('/api/motors/report');
+        $response = $this->get('/api/motors/sales');
 
         $response->assertStatus(401);
     }
@@ -169,7 +169,7 @@ class ApiTest extends BaseTestCase
 
         $response = $this->withHeaders([
             'Authorization' => 'Bearer ' . $token, // Include token in request header
-        ])->get('/api/motors/report');
+        ])->get('/api/motors/sales');
 
         $response->assertStatus(200);
     }

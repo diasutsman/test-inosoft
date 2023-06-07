@@ -67,9 +67,9 @@ class MotorController extends Controller
         return $this->formatApiResponse($this->motorService->deleteMotor($id), 200);
     }
 
-    public function report()
+    public function sales()
     {
-        return $this->formatApiResponse($this->motorService->report(), 200);
+        return $this->formatApiResponse($this->motorService->sales(), 200);
     }
 
     public function buy(string $id)

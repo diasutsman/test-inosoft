@@ -58,14 +58,14 @@ class VehicleRepository
     // sales functions end
 
     /**
-     * !Report functions
+     * !Sales functions
      */
-    // report functions start
+    // sales functions start
     public function salesReport($model)
     {
         return $model->where('status', 'sold')->get();
     }
-    // report functions end
+    // sales functions end
 
 
     /**

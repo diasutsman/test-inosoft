@@ -6,6 +6,7 @@ use App\Models\Car;
 use App\Helpers\FormatApi;
 use App\Services\CarService;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class CarController extends Controller
 {
@@ -22,71 +23,54 @@ class CarController extends Controller
      */
     public function index()
     {
-        return $this->formatApiResponse($this->carService->listCarVehicles(), 200);
-    }
+        $cars = $this->carService->getAllCars();
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        return $this->formatApiResponse($this->carService->addCar($request), 201);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  string  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        return $this->formatApiResponse($this->carService->carDetail($id), 200);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  string  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        return $this->formatApiResponse($this->carService->updateCar($request, $id), 200);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  string $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        return $this->formatApiResponse($this->carService->deleteCar($id), 200);
-    }
-
-    public function report()
-    {
-        return $this->formatApiResponse($this->carService->report(), 200);
-    }
-
-    public function buy($id)
-    {
-        return $this->formatApiResponse($this->carService->buy($id), 200);
-    }
-
-    // format api dengan dinamis data dan status code
-    private function formatApiResponse($data, $statusCode)
-    {
-        if ($data) {
-            return FormatApi::formatResponse($statusCode, 'Success', $data);
-        } else {
-            return FormatApi::formatResponse(400, 'Gagal');
+        if ($cars->count() <= 0) {
+            return response()->json([
+                'success' => false,
+                'data' => $cars,
+            ], Response::HTTP_OK);
         }
+
+        return response()->json([
+            'success' => true,
+            'data' => $cars,
+        ], Response::HTTP_OK);
+    }
+
+    public function stock()
+    {
+        $stock = $this->carService->stock();
+        if ($stock->count() <= 0) {
+            return response()->json([
+                'success' => false,
+                'stock' => 'No stock available',
+                'data' => $stock,
+            ], Response::HTTP_OK);
+        }
+
+        return response()->json([
+            'success' => true,
+            'data' => $stock,
+        ], Response::HTTP_OK);
+    }
+
+    public function sales()
+    {
+        $sales = $this->carService->sales();
+        if ($sales->count() <= 0) {
+            return response()->json([
+                'success' => false,
+                'amount_sold' => 'Nothing sold yet',
+                'data' => $sales,
+            ], Response::HTTP_OK);
+        }
+
+
+        return response()->json([
+            'success' => true,
+            'amount_sold' => $sales->count(),
+            'data' => $sales,
+        ], Response::HTTP_OK);
     }
 }

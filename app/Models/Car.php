@@ -9,6 +9,10 @@ class Car extends Moloquent
 {
     use HasFactory;
 
+    protected $with = [
+        'vehicle',
+    ];
+
     protected $guarded = [
         'id',
         'created_at',

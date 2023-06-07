@@ -54,7 +54,7 @@ class MotorService
         if ($validator->fails()) {
             return null;
         }
-        
+
         $motorData = $validator->validated();
         return $this->motorRepository->updateMotor($motorData, $id);
     }
@@ -68,9 +68,9 @@ class MotorService
         return $this->motorRepository->deleteMotor($id);
     }
 
-    public function report()
+    public function sales()
     {
-        return $this->motorRepository->report();
+        return $this->motorRepository->sales();
     }
 
     public function buy(string $id)

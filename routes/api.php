@@ -27,31 +27,14 @@ Route::group(['middleware' => ['jwt.verify']], function () {
     Route::get('me', [AuthController::class, 'me']);
 
     // Vehicles
-    // Route::post('kendaraan', [VehicleSalesController::class, 'menambahkanKendaraan']);
-    // Route::put('update-kendaraan/{id}', [VehicleSalesController::class, 'updateKendaraan']);
-    // Route::get('list-kendaraan', [VehicleSalesController::class, 'listAllKendaraan']);
     Route::apiResource('vehicles', VehicleController::class)->except('destroy');
 
     // Cars
-    // Route::post('mobil', [VehicleSalesController::class, 'menambahkanMobil']);
-    // Route::get('list-mobil', [VehicleSalesController::class, 'listKendaraanMobil']);
-    // Route::get('detail-mobil/{id}', [VehicleSalesController::class, 'detailMobil']);
-    // Route::put('update-mobil/{id}', [VehicleSalesController::class, 'updateMobil']);
-    // Route::delete('delete-mobil/{id}', [VehicleSalesController::class, 'deleteMobil']);
-    // Route::get('laporan-penjualan-mobil', [VehicleSalesController::class, 'laporanPenjualanMobil']);
-    // Route::put('beli-mobil/{id}', [VehicleSalesController::class, 'penjualanMobil']);
     Route::get('cars/report', [CarController::class, 'report']);
     Route::put('cars/{id}/buy', [CarController::class, 'buy']);
     Route::apiResource('cars', CarController::class);
 
     // Motors
-    // Route::post('motor', [VehicleSalesController::class, 'menambahkanMotor']);
-    // Route::get('list-motor', [VehicleSalesController::class, 'listKendaraanMotor']);
-    // Route::get('detail-motor/{id}', [VehicleSalesController::class, 'detailMotor']);
-    // Route::put('update-motor/{id}', [VehicleSalesController::class, 'updateMotor']);
-    // Route::delete('delete-motor/{id}', [VehicleSalesController::class, 'deleteMotor']);
-    // Route::put('beli-motor/{id}', [VehicleSalesController::class, 'penjualanMotor']);
-    // Route::get('laporan-penjualan-motor', [VehicleSalesController::class, 'laporanPenjualanMotor']);
     Route::get('motors/report', [MotorController::class, 'report']);
     Route::put('motors/{motor}/buy', [MotorController::class, 'buy']);
     Route::apiResource('motors', MotorController::class);

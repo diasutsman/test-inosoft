@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Vehicle;
+use Illuminate\Support\Facades\DB;
 
 class VehicleRepository
 {
@@ -19,7 +20,20 @@ class VehicleRepository
     // List functions start
     public function listAllVehicle()
     {
-        return $this->vehicle->get();
+        return $this->vehicle->with(['motor', 'car'])
+            ->get()
+            ->filter(fn ($item) => $item->car || $item->motor)
+            ->map(function ($item) {
+                return [
+                    'id' => $item->id,
+                    'manufacture_year' => $item->manufacture_year,
+                    'color' => $item->color,
+                    'price' => $item->price,
+                    ...($item->car ?? $item->motor ?? collect())
+                        ->toArray(),
+                    'is' => 'a ' . ($item->car ? 'car' : 'motor')
+                ];
+            })->values();
     }
     // List functions end
 

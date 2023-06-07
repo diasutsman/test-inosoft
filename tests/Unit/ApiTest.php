@@ -61,6 +61,12 @@ class ApiTest extends BaseTestCase
     {
         $token = $this->getToken();
 
+        Vehicle::factory(3)->create([
+            'manufacture_year' => 2023,
+            'color' => 'black',
+            'price' => 100000000
+        ]);
+
         $response = $this->withHeaders([
             'Authorization' => 'Bearer ' . $token, // Include token in request header
         ])->get('api/vehicles');

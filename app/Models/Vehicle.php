@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Car;
+use App\Models\Motor;
 use Jenssegers\Mongodb\Eloquent\Model as Moloquent;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Vehicle extends Moloquent
 {
@@ -23,5 +25,10 @@ class Vehicle extends Moloquent
     public function motor()
     {
         return $this->hasOne(Motor::class);
+    }
+
+    public function car()
+    {
+        return $this->hasOne(Car::class);
     }
 }

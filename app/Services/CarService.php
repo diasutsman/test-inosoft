@@ -15,7 +15,7 @@ class CarService
         'machine' => 'required|string',
         'passenger_capacity' => 'required|integer',
         'type' => 'required|string',
-        'vehicle_id' => 'required|exists:vehicles,_id'
+
     ];
 
     public function __construct(CarRepository $carRepository)
@@ -30,7 +30,9 @@ class CarService
 
     public function addCar(Request $request)
     {
-        $validator = Validator::make($request->all(), $this->rules);
+        $validator = Validator::make($request->all(), array_merge($this->rules, [
+            'vehicle_id' => 'required|exists:vehicles,_id|unique:cars,vehicle_id'
+        ]));
 
         if ($validator->fails()) {
             return null;

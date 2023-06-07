@@ -56,10 +56,10 @@ class VehicleController extends Controller
      */
     public function store(Request $request)
     {
-        if ($request->tipe_kendaraan == 'car') {
+        if ($request->vehicle_type == 'car') {
             $validatedData = $this->carService->validator($request->all());
             $this->carService->store($validatedData);
-        } else if ($request->tipe_kendaraan == 'motor') {
+        } else if ($request->vehicle_type == 'motor') {
             $validatedData = $this->motorService->validator($request->all());
             $this->motorService->store($validatedData);
         } else {

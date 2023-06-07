@@ -23,7 +23,7 @@ class VehicleService
     public function validator(array $data)
     {
         $validator = Validator::make($data, [
-            'year' => 'required|size:4',
+            'manufacture_year' => 'required|size:4',
             'color' => 'required|string',
             'price' => 'required|numeric',
             'vehicle_type' => 'required|string',

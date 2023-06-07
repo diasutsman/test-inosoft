@@ -21,7 +21,7 @@ class CarService extends VehicleService
         $data = parent::validator($data);
 
         $validator = Validator::make($data, [
-            'passenger_capacity' => 'required|string',
+            'passenger_capacity' => 'required|integer',
             'type' => 'required|string',
         ]);
 

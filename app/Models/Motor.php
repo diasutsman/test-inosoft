@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Vehicle;
 use Jenssegers\Mongodb\Eloquent\Model as Moloquent;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Motor extends Moloquent
 {

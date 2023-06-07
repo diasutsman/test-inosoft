@@ -24,7 +24,7 @@ class MotorRepository
     // List functions start
     public function getAllMotors()
     {
-        return $this->motor->select('_id', 'name')->get();
+        return $this->motor->get();
     }
     // List functions end
 

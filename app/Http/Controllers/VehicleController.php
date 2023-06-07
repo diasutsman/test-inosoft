@@ -157,14 +157,4 @@ class VehicleController extends Controller
             'data' => $stock
         ], Response::HTTP_OK);
     }
-
-    // format api dengan dinamis data dan status code
-    private function formatApiResponse($data, $statusCode)
-    {
-        if ($data) {
-            return FormatApi::formatResponse($statusCode, 'Success', $data);
-        } else {
-            return FormatApi::formatResponse(400, 'Gagal');
-        }
-    }
 }

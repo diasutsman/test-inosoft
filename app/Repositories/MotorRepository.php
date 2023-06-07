@@ -24,7 +24,7 @@ class MotorRepository
     // List functions start
     public function getAllMotors()
     {
-        return $this->motor->get();
+        return $this->motor->with('vehicle')->get();
     }
     // List functions end
 
@@ -34,7 +34,7 @@ class MotorRepository
     // sales functions start
     public function sales()
     {
-        return $this->motor->where('status', 'sold')->get();
+        return $this->motor->with('vehicle')->where('status', 'sold')->get();
     }
     // sales functions end
 
@@ -44,7 +44,7 @@ class MotorRepository
     // sales functions start
     public function stock()
     {
-        return $this->motor->where('status', 'ready')->get();
+        return $this->motor->with('vehicle')->where('status', 'ready')->get();
     }
     // sales functions end
 }

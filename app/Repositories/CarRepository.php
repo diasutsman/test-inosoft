@@ -20,7 +20,7 @@ class CarRepository
     // List functions start
     public function getAllCars()
     {
-        return $this->car->all();
+        return $this->car->with('vehicle')->get();
     }
     // List functions end
 
@@ -35,7 +35,7 @@ class CarRepository
     // sales functions start
     public function sales()
     {
-        return $this->car->where('status', 'sold')->get();
+        return $this->car->with('vehicle')->where('status', 'sold')->get();
     }
     // sales functions end
 
@@ -45,7 +45,7 @@ class CarRepository
     // sales functions start
     public function stock()
     {
-        return $this->car->where('status', 'ready')->get();
+        return $this->car->with('vehicle')->where('status', 'ready')->get();
     }
     // sales functions end
 }

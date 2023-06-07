@@ -10,10 +10,6 @@ class Motor extends Moloquent
 {
     use HasFactory;
 
-    protected $with = [
-        'vehicle',
-    ];
-
     protected $guarded = [
         'created_at',
         'updated_at',
